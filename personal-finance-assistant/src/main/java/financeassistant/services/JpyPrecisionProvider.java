@@ -1,5 +1,8 @@
 package financeassistant.services;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class JpyPrecisionProvider implements RoundPrecisionProvider {
 
 	public int getRoundPrecision(String currency) {
