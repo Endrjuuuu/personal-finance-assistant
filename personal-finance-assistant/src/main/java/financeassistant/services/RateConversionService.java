@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +24,11 @@ public class RateConversionService {
 	@Qualifier("JpyRatePrecisionProvider")
 	private Map<String, RoundPrecisionProvider> precisionProviders;
 
+	@Autowired
+	private MessageSource msgSource;
+
 	public BigDecimal converAmount(BigDecimal amount, String currency) {
+		System.out.println(msgSource.getMessage("greetings", null, null));
 		BigDecimal rate = rateProvider.getRate(currency, new Date());
 		System.out.println("RateConversionService: Obliczam kwote");
 		int precision = 2;
