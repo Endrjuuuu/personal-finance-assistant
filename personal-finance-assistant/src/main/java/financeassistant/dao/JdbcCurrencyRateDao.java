@@ -3,7 +3,9 @@ package financeassistant.dao;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -38,5 +40,23 @@ public class JdbcCurrencyRateDao implements CurrencyRateDao {
 								rs.getBigDecimal("RATE"));
 					}
 				});
+	}
+
+	public void addRate(CurrencyRate currencyRate) {
+		jdbcTemplate.update("insert into currency_rates(currency, rate_date, rate) values (?, ?, ?)",
+				currencyRate.getCurrency(), new java.sql.Date(currencyRate.getRateDate().getTime()),
+				currencyRate.getRate());
+
+	}
+
+	public void addManyRates(List<CurrencyRate> currencyRates) {
+		List<Object[]> batch = new ArrayList<Object[]>();
+
+		for (CurrencyRate currencyRate : currencyRates) {
+			batch.add(new Object[] { currencyRate.getCurrency(),
+					new java.sql.Date(currencyRate.getRateDate().getTime()), currencyRate.getRate() });
+		}
+
+		jdbcTemplate.batchUpdate("insert into currency_rates(currency, rate_date, rate) values (?, ?, ?)", batch);
 	}
 }

@@ -25,4 +25,5 @@ public class DatabaseConfig {
 	public CurrencyRateDao currencyRateDao() {
 		return new JdbcCurrencyRateDao();
 	}
+	
 }

@@ -13,6 +13,7 @@ import financeassistant.services.FileCurrencyRateProvider;
 import financeassistant.services.FixedPrecisionProvider;
 import financeassistant.services.JpyPrecisionProvider;
 import financeassistant.services.RateConversionService;
+import financeassistant.services.RateUpdateService;
 import financeassistant.services.RoundPrecisionProvider;
 
 @Configuration
@@ -53,6 +54,11 @@ public class AppConfig {
 	@Bean(name = "JpyRatePrecisionProvider")
 	public RoundPrecisionProvider roundJpyPrecisionProvider() {
 		return new JpyPrecisionProvider();
+	}
+
+	@Bean
+	public RateUpdateService rateUpdateService() {
+		return new RateUpdateService();
 	}
 
 }
