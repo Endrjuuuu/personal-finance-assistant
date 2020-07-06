@@ -2,6 +2,8 @@ package financeassistant.services;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -27,9 +29,12 @@ public class RateConversionService {
 	@Autowired
 	private MessageSource msgSource;
 
-	public BigDecimal converAmount(BigDecimal amount, String currency) {
+	public BigDecimal converAmount(BigDecimal amount, String currency) throws ParseException {
+
 		System.out.println(msgSource.getMessage("greetings", null, null));
-		BigDecimal rate = rateProvider.getRate(currency, new Date());
+		
+		Date date = (new SimpleDateFormat("yyyy-mm-dd")).parse("2020-01-23");
+		BigDecimal rate = rateProvider.getRate(currency, date);
 		System.out.println("RateConversionService: Obliczam kwote");
 		int precision = 2;
 		System.out.println("Ilosc dostawcow: " + precisionProviders.size());

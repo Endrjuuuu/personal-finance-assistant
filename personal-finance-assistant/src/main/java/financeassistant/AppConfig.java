@@ -2,6 +2,7 @@ package financeassistant;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -15,6 +16,7 @@ import financeassistant.services.RateConversionService;
 import financeassistant.services.RoundPrecisionProvider;
 
 @Configuration
+@Import(DatabaseConfig.class)
 @PropertySource("classpath:app.properties")
 public class AppConfig {
 
@@ -26,13 +28,13 @@ public class AppConfig {
 	}
 
 	@Bean
-	@Profile({ "dev", "test", "!prod" })
+	@Profile({ "prod" })
 	public CurrencyRateProvider fileCurrencyRateProvider() {
 		return new FileCurrencyRateProvider();
 	}
 
 	@Bean
-	@Profile("prod")
+	@Profile("!prod")
 	public CurrencyRateProvider databaseCurrencyRateProvider() {
 		return new DatabaseCurrencyRateProvider();
 	}
