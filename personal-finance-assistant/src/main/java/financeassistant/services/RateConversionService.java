@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +20,7 @@ public class RateConversionService {
 	}
 
 	@Autowired(required = false)
+	@Qualifier("JpyRatePrecisionProvider")
 	private Map<String, RoundPrecisionProvider> precisionProviders;
 
 	public BigDecimal converAmount(BigDecimal amount, String currency) {
